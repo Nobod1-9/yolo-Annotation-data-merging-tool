@@ -15,17 +15,21 @@ The distributed EXE version does not require a Python environment and can be run
 每个单独的数据集文件夹必须符合以下结构：  
 Each individual dataset folder must follow the structure below:
 
+
+<pre>
 DatasetA
 ├── images/
-│    └── train/
-│         ├── pic1.jpg
-│         ├── pic2.jpg
-│         └── …
+│   └── train/
+│       ├── pic1.jpg
+│       ├── pic2.jpg
+│       └── …
 └── labels/
-     └── train/
-          ├── label1.txt
-          ├── label2.txt
-          └── classes.txt
+    └── train/
+        ├── label1.txt
+        ├── label2.txt
+        └── classes.txt
+</pre>
+
 
 
 - **classes.txt**：每行一个类别名称，类别 ID 以文件中行序（从 0 开始）对应。  
