@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['D:\\python\\launch\\merge.py'],
+    ['D:\\pythonMerge\\launch\\merge.py'],
     pathex=[],
     binaries=[],
     datas=[],
