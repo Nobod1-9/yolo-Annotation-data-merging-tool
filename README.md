@@ -1,82 +1,152 @@
-# yolo-Annotation-data-merging-tool
-## YOLO 数据集合并工具 使用说明 ##
-本工具用于将多个符合 YOLO 数据集格式的子文件夹合并成一个统一的数据集。打包后的 EXE 程序无需安装 Python 环境，可直接运行。
+# YOLO 数据集合并工具 / YOLO Dataset Merging Tool
 
-使用步骤
-双击运行 EXE 程序
+## 简介 / Introduction
 
-双击运行生成的 EXE 文件（例如：YOLO_Dataset_Merge.exe），程序将自动打开图形界面。
-选择数据集根目录
+本工具用于将多个符合 YOLO 标注格式的数据集文件夹合并为一个统一的数据集。  
+This tool is used to merge multiple YOLO-format dataset folders into a single unified dataset.
 
-点击界面上“选择文件夹”按钮，选择一个根目录。
-该根目录下应包含多个数据集文件夹，每个数据集文件夹需要符合以下结构：
-markdown
-复制
-编辑
-数据集文件夹（例如：DatasetA）
+打包后的 EXE 程序无需安装 Python 环境，可直接在 Windows 系统上运行。  
+The distributed EXE version does not require a Python environment and can be run directly on Windows.
+
+---
+
+## 目录结构要求 / Directory Structure Requirements
+
+每个单独的数据集文件夹必须符合以下结构：  
+Each individual dataset folder must follow the structure below:
+
+DatasetA
 ├── images/
 │    └── train/
-│         ├── 图片1.jpg
-│         ├── 图片2.jpg
+│         ├── pic1.jpg
+│         ├── pic2.jpg
 │         └── …
 └── labels/
      └── train/
-          ├── 标签1.txt
-          ├── 标签2.txt
+          ├── label1.txt
+          ├── label2.txt
           └── classes.txt
-注意： 请确保每个数据集的 labels/train/classes.txt 文件存在，并且类别名称的顺序代表类别 id（下标从 0 开始）。
-选择输出目录
 
-点击“选择文件夹”按钮，选择一个用于存放合并后数据集的输出目录。
-程序将在输出目录下自动生成统一的目录结构，其中图片文件和标签文件会复制并重命名（添加数据集文件夹名称前缀），合并后的 classes.txt 文件会生成在 labels/train 文件夹内。
-点击“开始合并”按钮
 
-确认输入目录与输出目录无误后，点击“开始合并”按钮。
-程序将自动遍历每个符合要求的数据集文件夹，进行类别合并、标签更新及文件复制操作。
-处理过程中的详细信息会在窗口下方的日志区域显示。
-等待合并完成
+- **classes.txt**：每行一个类别名称，类别 ID 以文件中行序（从 0 开始）对应。  
+  **classes.txt**: Each line contains a class name. The class IDs correspond to the line order (starting from 0).
 
-合并完成后，日志区域会提示“所有数据集合并完成！输出目录：xxx”。
-打开输出目录检查生成的统一数据集，目录结构示例如下：
-lua
-复制
-编辑
-输出目录
+- **标签文件 (.txt)**：格式为  类别ID x_center y_center width height
+- **Label files (.txt)**: Format is  class_id x_center y_center width height
+
+- 
+---
+
+## 使用方法 / How to Use
+
+### 1. 准备工作 / Preparation
+
+- **数据集要求 / Dataset Requirements**  
+确保各个数据集文件夹中均包含 `images/train` 与 `labels/train` 文件夹，且 `labels/train` 中有 `classes.txt`。  
+Ensure that each dataset folder contains `images/train` and `labels/train`, and that a `classes.txt` file exists in `labels/train`.
+
+- **运行环境 / Environment**  
+已打包为 EXE，无需安装 Python。  
+The program is packaged as an EXE and does not require Python.
+
+### 2. 运行程序 / Running the Program
+
+1. **启动程序 / Launch the Program**  
+ - 双击运行 EXE 文件（例如：`YOLO_Dataset_Merge.exe`）。  
+   Double-click the EXE file (e.g., `YOLO_Dataset_Merge.exe`).
+
+2. **选择数据集根目录 / Select the Root Directory of Datasets**  
+ - 点击界面上的“选择文件夹”按钮，选择包含多个数据集文件夹的根目录。  
+   Click the "Select Folder" button and choose the root directory that contains multiple dataset folders.
+
+3. **选择输出目录 / Select the Output Directory**  
+ - 点击另一个“选择文件夹”按钮，选择输出目录，该目录用于存放合并后的数据集。  
+   Click the other "Select Folder" button and choose the output directory where the merged dataset will be stored.
+
+4. **开始合并 / Start Merging**  
+ - 点击“开始合并”按钮后，程序将自动遍历各数据集，合并类别，并复制图片及标签文件到输出目录。  
+   After clicking the "Start Merging" button, the program will automatically traverse each dataset folder, merge the classes, and copy the image and label files to the output directory.
+
+5. **查看日志 / Check the Log**  
+ - 合并过程中的详细信息将在窗口下方的日志区域显示。  
+   Detailed information about the merging process will be displayed in the log area at the bottom of the window.
+
+6. **合并完成 / Merging Completed**  
+ - 日志提示“所有数据集合并完成！输出目录：xxx”时，说明合并工作完成。  
+   When the log displays "All datasets merged! Output directory: xxx", the merging process is complete.
+
+---
+
+## 输出目录结构 / Output Directory Structure
+
+合并后的数据集将输出到指定的输出目录，其目录结构如下：
+
+DatasetC
 ├── images/
 │    └── train/
-│         ├── DatasetA_XXX.jpg
-│         ├── DatasetB_XXX.jpg
+│         ├── pic1.jpg
+│         ├── pic2.jpg
 │         └── …
 └── labels/
      └── train/
-          ├── DatasetA_XXX.txt
-          ├── DatasetB_XXX.txt
-          └── classes.txt   <-- 合并后的类别列表，下标从 0 开始
-注意事项
-目录结构要求
-请确保每个数据集文件夹中均包含 images/train 和 labels/train 目录，并且 labels/train 下必须有 classes.txt 文件。否则，该数据集将被跳过，日志中会有提示。
+          ├── label1.txt
+          ├── label2.txt
+          └── classes.txt
 
-标签文件内容
 
-标签文件中的每一行格式为：
-arduino
-复制
-编辑
-类别id x_center y_center width height
-请确保类别 id 为数字，且下标从 0 开始。
-如果某个标签文件为空（表示该图片没有标注），程序会自动复制生成对应的空文件，确保数据集中的图片与标签一一对应。
-数据集命名
-为避免不同数据集之间同名文件冲突，程序会在复制的图片及标签文件名前添加所属数据集文件夹名称作为前缀。
+- 程序会在复制文件时在原文件名前加上所属数据集文件夹名称前缀，避免文件名冲突。  
+  The program renames the files by adding the dataset folder name as a prefix to avoid filename conflicts.
 
-类别合并逻辑
-程序以最先处理的数据集为基准建立全局类别列表。如果后续数据集中遇到已存在的类别，则映射到相同全局 id；如果出现新类别，则追加到全局类别列表。请核对合并后的 classes.txt 确认类别顺序与预期一致。
+---
 
-日志信息
-请注意观察程序界面下方的日志输出，如有任何错误或异常提示，根据日志内容检查对应的数据集文件夹结构和文件格式。
+## 注意事项 / Important Notes
 
-程序运行环境
-已打包为 EXE 后无需 Python 环境，但请在 Windows 系统上运行，并确保相关目录的读写权限正确。
+- **目录结构 / Directory Structure**  
+  请确保每个数据集文件夹中存在 `images/train` 和 `labels/train/classes.txt`。否则，该数据集将被跳过，日志中会有提示。  
+  Make sure that every dataset folder contains `images/train` and `labels/train/classes.txt`. Otherwise, that dataset will be skipped and a message will be shown in the log.
 
-通过以上步骤和注意事项，即可顺利使用本工具将多个 YOLO 数据集合并为一个统一数据集。遇到问题时，请查看日志提示或检查数据集文件夹结构和标签文件格式。
+- **标签文件格式 / Label File Format**  
+  标签文件中的类别 ID 必须为数字且从 0 开始。  
+  The class IDs in the label files must be numeric and start from 0.
 
-如有其他疑问或建议，欢迎反馈！
+- **空标签文件 / Empty Label Files**  
+  如果某个标签文件为空（表示图片没有标注），程序会生成对应的空文件，确保图片和标签文件一一对应。  
+  If a label file is empty (indicating that the image has no annotations), the program will create a corresponding empty file to ensure that images and label files correspond correctly.
+
+- **类别合并逻辑 / Class Merging Logic**  
+  程序以最先处理的数据集为基准建立全局类别列表。如果后续数据集中存在相同类别，则映射为同一全局 ID；如有新类别，则追加到全局列表中。请核对合并后的 `classes.txt`。  
+  The program builds the global class list based on the dataset processed first. If subsequent datasets contain the same class, they will be mapped to the same global ID; new classes will be appended to the global list. Please verify the merged `classes.txt` file.
+
+- **文件重命名 / File Renaming**  
+  为防止不同数据集中存在同名文件，程序会在复制的图片和标签文件名前添加数据集文件夹名称作为前缀。  
+  To avoid filename conflicts across datasets, the program will add the dataset folder name as a prefix to the copied image and label files.
+
+- **日志 / Log**  
+  请留意程序界面下方的日志输出，如果有错误或异常提示，请根据日志信息检查相应的数据集结构和文件格式。  
+  Please pay attention to the log output at the bottom of the interface. If errors or exceptions occur, check the respective dataset structure and file formats based on the log information.
+
+---
+
+## 问题排查 / Troubleshooting
+
+- **未显示其他数据集信息 / Missing Dataset Information**  
+  请检查输入根目录下是否存在多个符合要求的数据集文件夹。  
+  Ensure that there are multiple dataset folders that meet the requirements under the input root directory.
+
+- **标签文件更新不正确 / Incorrect Label Updates**  
+  检查各数据集的 `classes.txt` 文件内容是否正确，以及标签文件中第一项是否为数字且从 0 开始。  
+  Verify that the `classes.txt` content in each dataset folder is correct and that the first item in the label files is a number starting from 0.
+
+- **程序报错或异常 / Errors or Exceptions**  
+  请查看日志窗口中的详细错误信息，根据提示检查数据集文件夹结构或文件格式。  
+  Please check the detailed error messages in the log window and verify the dataset folder structure or file formats accordingly.
+
+---
+
+通过以上说明，你可以顺利使用本工具将多个 YOLO 数据集合并为一个统一的数据集。  
+With the above instructions, you can successfully merge multiple YOLO datasets into a single unified dataset.
+
+如有问题或建议，欢迎反馈！  
+If you have any questions or suggestions, please feel free to provide feedback!
+
+
